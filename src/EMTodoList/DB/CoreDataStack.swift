@@ -32,4 +32,9 @@ public class CoreDataStack: ObservableObject {
         
         return container
     }()
+    
+    // MARK: - Inits
+    
+    /// ``CoreDataStack``.
+    private init() {}
 }
