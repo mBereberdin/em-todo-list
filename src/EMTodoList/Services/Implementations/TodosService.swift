@@ -19,6 +19,11 @@ public final class TodosService: ITodosService {
         .accept("application/json")
     ]
     
+    // MARK: - Inits
+    
+    /// ``ITodosService``.
+    public init() {}
+    
     // MARK: - Methods
     
     public func getTodosAsync() async throws -> [TodoDto] {

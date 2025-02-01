@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		257BCF4F2D4A40FB00642BFB /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 257BCF4E2D4A40FB00642BFB /* Alamofire */; };
+		257BD08D2D4B7D0100642BFB /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 257BD08C2D4B7D0100642BFB /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				257BCF4F2D4A40FB00642BFB /* Alamofire in Frameworks */,
+				257BD08D2D4B7D0100642BFB /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +86,7 @@
 			name = EMTodoList;
 			packageProductDependencies = (
 				257BCF4E2D4A40FB00642BFB /* Alamofire */,
+				257BD08C2D4B7D0100642BFB /* SnapKit */,
 			);
 			productName = EMTodoList;
 			productReference = 257BCF0A2D4A34C100642BFB /* EMTodoList.app */;
@@ -115,6 +118,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				257BCF4D2D4A40FB00642BFB /* XCRemoteSwiftPackageReference "Alamofire" */,
+				257BD08B2D4B7D0100642BFB /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 257BCF0B2D4A34C100642BFB /* Products */;
@@ -350,6 +354,14 @@
 				minimumVersion = 5.10.2;
 			};
 		};
+		257BD08B2D4B7D0100642BFB /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -357,6 +369,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 257BCF4D2D4A40FB00642BFB /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		257BD08C2D4B7D0100642BFB /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 257BD08B2D4B7D0100642BFB /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
