@@ -122,7 +122,7 @@ public final class EMTLTodoCell: UITableViewCell {
     ///
     /// > Tip: При смене значения изменяет стиль заголовка и описания ячейки, если они установлены.
     ///
-    /// - Parameter text: Дата создания, которую необходимо задать.
+    /// - Parameter isCompleted: Флаг завершенности.
     public func setIsCompleted(_ isCompleted: Bool = false) {
         self._isCompleted = isCompleted
         
