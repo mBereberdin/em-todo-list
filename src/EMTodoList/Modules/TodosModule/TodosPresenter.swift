@@ -57,6 +57,7 @@ public final class TodosPresenter: ITodosPresenter {
             
             DispatchQueue.main.async {
                 self.view.reloadTodosTable()
+                self.updateTodosCountLabelText()
             }
         }
     }
@@ -86,5 +87,11 @@ public final class TodosPresenter: ITodosPresenter {
     
     public func didSelectCell(in tableView: UITableView, at indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    /// Обновить текст надписи количества задач.
+    private func updateTodosCountLabelText() {
+        let text = String(format: "%d Задач", self.interactor.todos.count)
+        self.view.setTodosCountLabelText(text)
     }
 }
