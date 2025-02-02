@@ -35,4 +35,9 @@ public protocol ITodosView: AnyObject {
     
     /// Перезагрузить таблицу задач.
     func reloadTodosTable()
+    
+    /// Задать текст надписи количества задач.
+    ///
+    /// - Parameter text: Текст, который необходимо задать.
+    func setTodosCountLabelText(_ text: String?)
 }

@@ -18,6 +18,9 @@ public final class TodosView: UIViewController {
     /// Таблица задач.
     private var todosTable: UITableView!
     
+    /// Надпись количества задач.
+    private var todosCountLabel: UILabel!
+    
     // MARK: - Fields
     
     public var presenter: ITodosPresenter!
@@ -43,6 +46,7 @@ extension TodosView: ITodosView {
         self.configureView()
         
         self.configureNavigationItem()
+        self.configureToolBar()
         
         self.configureTodosTable()
     }
@@ -57,6 +61,11 @@ extension TodosView: ITodosView {
     
     public func reloadTodosTable() {
         self.todosTable.reloadData()
+    }
+    
+    public func setTodosCountLabelText(_ text: String?) {
+        self.todosCountLabel.text = text
+        self.todosCountLabel.sizeToFit()
     }
 }
 
@@ -101,7 +110,8 @@ extension TodosView {
         
         self.navigationItem.scrollEdgeAppearance = {
             let scrollEdgeAppearance = UINavigationBarAppearance()
-            scrollEdgeAppearance.configureWithTransparentBackground()
+            scrollEdgeAppearance.configureWithOpaqueBackground()
+            scrollEdgeAppearance.shadowColor = .clear
             
             scrollEdgeAppearance.titleTextAttributes = titleTextAttributes
             scrollEdgeAppearance.largeTitleTextAttributes = titleTextAttributes
@@ -112,13 +122,32 @@ extension TodosView {
         self.navigationItem.standardAppearance = {
             let standartAppearance = UINavigationBarAppearance()
             standartAppearance.configureWithDefaultBackground()
-            standartAppearance.backgroundEffect = UIBlurEffect(style: .systemUltraThinMaterialDark)
             
             standartAppearance.titleTextAttributes = titleTextAttributes
             standartAppearance.largeTitleTextAttributes = titleTextAttributes
             
             return standartAppearance
         }()
+    }
+    
+    /// Настроить панель инструментов.
+    private func configureToolBar() {
+        self.todosCountLabel = UILabel()
+        self.todosCountLabel.font = .systemFont(ofSize: 11)
+        
+        let createTodoButton = {
+            let image = UIImage(systemName: "square.and.pencil")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 22))
+            let barButton = UIBarButtonItem(image: image, style: .plain, target: self, action: nil)
+            barButton.tintColor = .systemYellow
+            
+            return barButton
+        }()
+        
+        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        
+        self.setToolbarItems([spacer, UIBarButtonItem(customView: self.todosCountLabel), spacer, createTodoButton], animated: false)
+        
+        self.hidesBottomBarWhenPushed = true
     }
     
     /// Настроить таблицу задач.
