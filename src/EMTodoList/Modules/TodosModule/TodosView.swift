@@ -109,6 +109,7 @@ extension TodosView {
     private func configureView() {
         self.title = "Задачи"
         self.view.backgroundColor = .black
+        self.extendedLayoutIncludesOpaqueBars = true
     }
     
     /// Настроить элемент навигации.
@@ -121,6 +122,7 @@ extension TodosView {
             let scrollEdgeAppearance = UINavigationBarAppearance()
             scrollEdgeAppearance.configureWithOpaqueBackground()
             scrollEdgeAppearance.shadowColor = .clear
+            scrollEdgeAppearance.backgroundColor = .black
             
             scrollEdgeAppearance.titleTextAttributes = titleTextAttributes
             scrollEdgeAppearance.largeTitleTextAttributes = titleTextAttributes
@@ -131,6 +133,7 @@ extension TodosView {
         self.navigationItem.standardAppearance = {
             let standartAppearance = UINavigationBarAppearance()
             standartAppearance.configureWithDefaultBackground()
+            standartAppearance.backgroundColor = .barsBackground
             
             standartAppearance.titleTextAttributes = titleTextAttributes
             standartAppearance.largeTitleTextAttributes = titleTextAttributes
@@ -142,6 +145,7 @@ extension TodosView {
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchResultsUpdater = self
         searchController.searchBar.placeholder = "Поиск"
+        searchController.searchBar.barStyle = .black
         searchController.searchBar.tintColor = .systemYellow
         
         self.navigationItem.searchController = searchController
@@ -151,6 +155,7 @@ extension TodosView {
     private func configureToolBar() {
         self.todosCountLabel = UILabel()
         self.todosCountLabel.font = .systemFont(ofSize: 11)
+        self.todosCountLabel.textColor = .white
         
         let createTodoButton = {
             let image = UIImage(systemName: "square.and.pencil")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 22))
@@ -183,6 +188,9 @@ extension TodosView {
         self.todosTable.rowHeight = UITableView.automaticDimension
         self.todosTable.estimatedRowHeight = 95
         self.todosTable.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        
+        self.todosTable.backgroundColor = self.view.backgroundColor
+        self.todosTable.indicatorStyle = .white
         
         self.todosTable.register(EMTLTodoCell.self, forCellReuseIdentifier: EMTLTodoCell.reuseIdentifier)
     }

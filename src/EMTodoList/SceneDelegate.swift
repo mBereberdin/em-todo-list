@@ -20,15 +20,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         
         let rootNC = UINavigationController(rootViewController: TodosView())
+        rootNC.navigationBar.backgroundColor = .black
         rootNC.navigationBar.prefersLargeTitles = true
         rootNC.navigationBar.isTranslucent = false
-        rootNC.setToolbarHidden(false, animated: false)
         
         let appearance = UIToolbarAppearance()
         appearance.configureWithDefaultBackground()
+        appearance.backgroundColor = .barsBackground
+        
         rootNC.toolbar.standardAppearance = appearance
         rootNC.toolbar.scrollEdgeAppearance = appearance
+        
         rootNC.toolbar.isTranslucent = false
+        rootNC.setToolbarHidden(false, animated: false)
         
         window?.rootViewController = rootNC
         window?.makeKeyAndVisible()
