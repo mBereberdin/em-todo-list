@@ -158,7 +158,19 @@ extension EMTLTodoCell {
     
     /// Настроить ui.
     private func configureUI() {
+        self.configureView()
         self.configureContentContainer()
+    }
+    
+    /// Настроить представление.
+    private func configureView() {
+        self.backgroundColor = .black
+        self.selectedBackgroundView = {
+            let backgroundView = UIView()
+            backgroundView.backgroundColor = .darkGray
+            
+            return backgroundView
+        }()
     }
     
     /// Настроить контейнер содержимого ячейки.
