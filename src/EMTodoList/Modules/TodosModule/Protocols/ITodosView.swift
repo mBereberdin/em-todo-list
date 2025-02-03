@@ -7,6 +7,8 @@
 
 import Foundation
 
+import UIKit.UIViewController
+
 /// Представление просмотра задач.
 ///
 /// Отвечает за отображение данных на экране и оповещает Presenter о действиях пользователя.
@@ -32,6 +34,11 @@ public protocol ITodosView: AnyObject {
     ///   - title: Заголовок.
     ///   - description: Описание.
     func showAlert(title: String, description: String)
+    
+    /// Показать представление.
+    ///
+    /// - Parameter view: Представление, которое необходимо показать.
+    func showView(_ view: UIViewController)
     
     /// Перезагрузить таблицу задач.
     func reloadTodosTable()

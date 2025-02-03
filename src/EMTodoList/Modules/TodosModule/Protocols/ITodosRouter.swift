@@ -18,4 +18,9 @@ public protocol ITodosRouter: AnyObject {
     var view: ITodosView! { get set }
     
     // MARK: - Methods
+    
+    /// Показать детальное представление задачи.
+    ///
+    /// - Parameter todo: Задача, детальное представление которой необходимо показать.
+    func showTodosDetailsView(for todo: Todo)
 }
