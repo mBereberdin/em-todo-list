@@ -24,4 +24,11 @@ public final class TodosRouter: ITodosRouter {
     }
     
     // MARK: - Methods
+    
+    public func showTodosDetailsView(for todo: Todo) {
+        let todosDetailsView = TodosDetailsView()
+        todosDetailsView.provideTodo(todo)
+        
+        self.view.showView(todosDetailsView)
+    }
 }

@@ -67,6 +67,10 @@ extension TodosView: ITodosView {
         self.todosCountLabel.text = text
         self.todosCountLabel.sizeToFit()
     }
+    
+    public func showView(_ view: UIViewController) {
+        self.navigationController?.pushViewController(view, animated: true)
+    }
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource extensions
@@ -112,8 +116,61 @@ extension TodosView {
         self.extendedLayoutIncludesOpaqueBars = true
     }
     
+    /// Настроить панель инструментов.
+    private func configureToolBar() {
+        self.todosCountLabel = UILabel()
+        self.todosCountLabel.font = .systemFont(ofSize: 11)
+        self.todosCountLabel.textColor = .white
+        
+        let createTodoButton = {
+            let image = UIImage(systemName: "square.and.pencil")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 22))
+            let barButton = UIBarButtonItem(image: image, style: .plain, target: self, action: nil)
+            barButton.tintColor = .systemYellow
+            
+            return barButton
+        }()
+        
+        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        
+        self.setToolbarItems([spacer, UIBarButtonItem(customView: self.todosCountLabel), spacer, createTodoButton], animated: false)
+    }
+    
+    /// Настроить таблицу задач.
+    private func configureTodosTable() {
+        self.todosTable = UITableView()
+        
+        self.view.addSubview(self.todosTable)
+        
+        self.todosTable.snp.makeConstraints { make in
+            make.directionalEdges.equalToSuperview()
+        }
+        
+        self.todosTable.dataSource = self
+        self.todosTable.delegate = self
+        
+        self.todosTable.rowHeight = UITableView.automaticDimension
+        self.todosTable.estimatedRowHeight = 95
+        self.todosTable.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        
+        self.todosTable.backgroundColor = self.view.backgroundColor
+        self.todosTable.indicatorStyle = .white
+        
+        self.todosTable.register(EMTLTodoCell.self, forCellReuseIdentifier: EMTLTodoCell.reuseIdentifier)
+    }
+    
+    // MARK: - Navigation
+    
     /// Настроить элемент навигации.
     private func configureNavigationItem() {
+        self.configureNavigationItemAppearances()
+        
+        self.configureNavigationItemSearchController()
+        
+        self.configureNavigationItemBackButtonItem()
+    }
+    
+    /// Настроить оформления элемента навигации.
+    private func configureNavigationItemAppearances() {
         let titleTextAttributes: [NSAttributedString.Key: Any] = [
             .foregroundColor: UIColor.white
         ]
@@ -140,7 +197,10 @@ extension TodosView {
             
             return standartAppearance
         }()
-        
+    }
+    
+    /// Настроить контроллер поиска элемента навигации.
+    private func configureNavigationItemSearchController() {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchResultsUpdater = self
@@ -151,47 +211,11 @@ extension TodosView {
         self.navigationItem.searchController = searchController
     }
     
-    /// Настроить панель инструментов.
-    private func configureToolBar() {
-        self.todosCountLabel = UILabel()
-        self.todosCountLabel.font = .systemFont(ofSize: 11)
-        self.todosCountLabel.textColor = .white
+    /// Настроить элемент кнопки назад элемента представления.
+    private func configureNavigationItemBackButtonItem() {
+        let backBarButtonItem = UIBarButtonItem(title: "Назад", style: .plain, target: nil, action: nil)
+        backBarButtonItem.tintColor = .systemYellow
         
-        let createTodoButton = {
-            let image = UIImage(systemName: "square.and.pencil")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 22))
-            let barButton = UIBarButtonItem(image: image, style: .plain, target: self, action: nil)
-            barButton.tintColor = .systemYellow
-            
-            return barButton
-        }()
-        
-        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        
-        self.setToolbarItems([spacer, UIBarButtonItem(customView: self.todosCountLabel), spacer, createTodoButton], animated: false)
-        
-        self.hidesBottomBarWhenPushed = true
-    }
-    
-    /// Настроить таблицу задач.
-    private func configureTodosTable() {
-        self.todosTable = UITableView()
-        
-        self.view.addSubview(self.todosTable)
-        
-        self.todosTable.snp.makeConstraints { make in
-            make.directionalEdges.equalToSuperview()
-        }
-        
-        self.todosTable.dataSource = self
-        self.todosTable.delegate = self
-        
-        self.todosTable.rowHeight = UITableView.automaticDimension
-        self.todosTable.estimatedRowHeight = 95
-        self.todosTable.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        
-        self.todosTable.backgroundColor = self.view.backgroundColor
-        self.todosTable.indicatorStyle = .white
-        
-        self.todosTable.register(EMTLTodoCell.self, forCellReuseIdentifier: EMTLTodoCell.reuseIdentifier)
+        self.navigationItem.backBarButtonItem = backBarButtonItem
     }
 }

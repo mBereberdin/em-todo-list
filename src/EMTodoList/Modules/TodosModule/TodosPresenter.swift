@@ -87,6 +87,9 @@ public final class TodosPresenter: ITodosPresenter {
     
     public func didSelectCell(in tableView: UITableView, at indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        let todo = self.interactor.isFilteringActive ? self.interactor.filteredTodos[indexPath.row] : self.interactor.todos[indexPath.row]
+        self.router.showTodosDetailsView(for: todo)
     }
     
     public func filterTodos(by text: String?) {
