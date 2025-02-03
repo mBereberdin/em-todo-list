@@ -28,6 +28,10 @@ public final class TodosInteractor: ITodosInteractor {
     
     public var todos: [Todo]
     
+    public var filteredTodos: [Todo]
+    
+    public var isFilteringActive: Bool
+    
     // MARK: - Inits
     
     /// ``ITodosInteractor``.
@@ -46,6 +50,8 @@ public final class TodosInteractor: ITodosInteractor {
         
         self.presenter = presenter
         self.todos = []
+        self.filteredTodos = []
+        self.isFilteringActive = false
     }
     
     // MARK: - Methods
@@ -95,6 +101,28 @@ public final class TodosInteractor: ITodosInteractor {
         }
         
         semaphore.wait()
+    }
+    
+    public func filterTodos(by text: String?) {
+        guard let text = text, !text.isEmpty else {
+            self.filteredTodos = self.todos
+            
+            return
+        }
+        
+        // Возможно, эффективнее будет делать фильтрацию по средствам sqlite в core data, но это надо тестить и текущая
+        // реализация просто пишется быстрее, учитывая сжатый срок.
+        self.filteredTodos = self.todos.filter { todo in
+            let lowercasedText = text.lowercased()
+            let isNameContainsText = todo.name.lowercased().contains(lowercasedText)
+            let isDetailsContainsText = todo.details?.lowercased().contains(lowercasedText) ?? false
+            
+            return isNameContainsText || isDetailsContainsText
+        }
+    }
+    
+    public func setIsFilteringActive(_ isActive: Bool) {
+        self.isFilteringActive = isActive
     }
 }
 

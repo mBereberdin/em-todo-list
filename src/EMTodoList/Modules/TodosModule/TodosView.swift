@@ -85,6 +85,15 @@ extension TodosView: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+// MARK: - UISearchResultsUpdating extensions
+extension TodosView: UISearchResultsUpdating {
+    
+    public func updateSearchResults(for searchController: UISearchController) {
+        self.presenter.updateIsFilteringActive(searchController.isActive)
+        self.presenter.filterTodos(by: searchController.searchBar.text)
+    }
+}
+
 // MARK: - ITodosView defaults extensions
 extension ITodosView {
     
@@ -128,6 +137,14 @@ extension TodosView {
             
             return standartAppearance
         }()
+        
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.placeholder = "Поиск"
+        searchController.searchBar.tintColor = .systemYellow
+        
+        self.navigationItem.searchController = searchController
     }
     
     /// Настроить панель инструментов.

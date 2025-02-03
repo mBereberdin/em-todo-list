@@ -51,4 +51,14 @@ public protocol ITodosPresenter: AnyObject {
     ///   - tableView: Таблица, в которой была выбрана ячейка.
     ///   - indexpath: Путь индекса, идентифицирующий ячейку.
     func didSelectCell(in tableView: UITableView, at indexPath: IndexPath)
+    
+    /// Отфильтровать задачи.
+    ///
+    /// - Parameter text: Текст, на основании которого происходит фильтрация.
+    func filterTodos(by text: String?)
+    
+    /// Обновить статус фильтрации.
+    ///
+    /// - Parameter isActive: Активна ли сейчас фильтрация.
+    func updateIsFilteringActive(_ isActive: Bool)
 }

@@ -20,6 +20,12 @@ public protocol ITodosInteractor: AnyObject {
     /// Задачи.
     var todos: [Todo] { get }
     
+    /// Отфильтрованные задачи.
+    var filteredTodos: [Todo] { get }
+    
+    /// Активна ли сейчас фильтрация.
+    var isFilteringActive: Bool { get }
+    
     // MARK: - Methods
     
     /// Инициализировать задачи если необходимо.
@@ -36,4 +42,16 @@ public protocol ITodosInteractor: AnyObject {
     /// > Throws:
     /// > - `TodosRepositoryErros.couldNotGetTodos` - когда не удалось получить задачи из бд.
     func loadTodos(errorHandling: ((Error)->())?)
+    
+    /// Отфильтровать задачи.
+    ///
+    /// Фильтрация выполняется по наименованию и описанию задачи.
+    ///
+    /// - Parameter text: Текст, на основании которого необходимо отфильтровать задачи.
+    func filterTodos(by text: String?)
+    
+    /// Установить статус фильтрации.
+    ///
+    /// - Parameter isActive: Активна ли сейчас фильтрация.
+    func setIsFilteringActive(_ isActive: Bool)
 }

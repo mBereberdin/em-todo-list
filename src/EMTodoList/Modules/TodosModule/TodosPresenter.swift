@@ -63,7 +63,7 @@ public final class TodosPresenter: ITodosPresenter {
     }
     
     public func getNumberOfRows() -> Int {
-        let numberOfRows = self.interactor.todos.count
+        let numberOfRows = self.interactor.isFilteringActive ? self.interactor.filteredTodos.count : self.interactor.todos.count
         
         return numberOfRows
     }
@@ -73,7 +73,7 @@ public final class TodosPresenter: ITodosPresenter {
             fatalError()
         }
         
-        let todo = self.interactor.todos[indexPath.row]
+        let todo = self.interactor.isFilteringActive ? self.interactor.filteredTodos[indexPath.row] : self.interactor.todos[indexPath.row]
         cell.setTitle(todo.name)
         cell.setDetails(todo.details)
         cell.setCreationDate(self._dateFormatter.string(from: todo.creationDate))
@@ -89,9 +89,24 @@ public final class TodosPresenter: ITodosPresenter {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    public func filterTodos(by text: String?) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.interactor.filterTodos(by: text)
+            
+            DispatchQueue.main.async {
+                self.view.reloadTodosTable()
+                self.updateTodosCountLabelText()
+            }
+        }
+    }
+    
+    public func updateIsFilteringActive(_ isActive: Bool) {
+        self.interactor.setIsFilteringActive(isActive)
+    }
+    
     /// Обновить текст надписи количества задач.
     private func updateTodosCountLabelText() {
-        let text = String(format: "%d Задач", self.interactor.todos.count)
+        let text = String(format: "%d Задач", self.getNumberOfRows())
         self.view.setTodosCountLabelText(text)
     }
 }
