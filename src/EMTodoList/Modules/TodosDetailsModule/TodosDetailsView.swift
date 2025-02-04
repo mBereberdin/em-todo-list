@@ -156,6 +156,12 @@ extension ITodosDetailsView {
 // MARK: - Configure UI extensions
 extension TodosDetailsView {
     
+    /// Настроить представление.
+    private func configureView() {
+        self.view.backgroundColor = .black
+    }
+    
+    /// Настроить элемент навигации.
     private func configureNavigationItem() {
         self.navigationItem.largeTitleDisplayMode = .never
         
@@ -166,11 +172,6 @@ extension TodosDetailsView {
             
             return scrollEdgeAppearance
         }()
-    }
-    
-    /// Настроить представление.
-    private func configureView() {
-        self.view.backgroundColor = .black
     }
     
     /// Настроить надпись заголовка.

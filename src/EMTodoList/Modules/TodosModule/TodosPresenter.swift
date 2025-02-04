@@ -17,6 +17,11 @@ public final class TodosPresenter: ITodosPresenter {
     /// Форматтер даты.
     private let _dateFormatter: DateFormatter
     
+    /// Шаблон сообщения для "поделиться".
+    ///
+    /// > Tip: "{Название задачи}\n\n{описание задачи}"
+    private let SHARE_TODO_TEMPLATE = "%@\n\n%@"
+    
     public weak var view: ITodosView!
     
     public var interactor: ITodosInteractor!
@@ -52,6 +57,17 @@ public final class TodosPresenter: ITodosPresenter {
             self.view.addRow(at: indexPath)
             self.updateTodosCountLabelText()
         }
+    }
+    
+    /// Получить задачу ячейки.
+    ///
+    /// - Parameter index: Индекс ячейки.
+    ///
+    /// - Returns: Задача, которая соответствует ячейке.
+    private func getCellTodo(at index: Int) -> Todo {
+        let todo = self.interactor.isFilteringActive ? self.interactor.filteredTodos[index] : self.interactor.todos[index]
+        
+        return todo
     }
     
     // MARK: - View
@@ -117,6 +133,48 @@ public final class TodosPresenter: ITodosPresenter {
                 tableView.reloadRows(at: [indexPath], with: .fade)
             }
         }
+    }
+    
+    public func getMenuFor(tableView: UITableView, at indexPath: IndexPath) -> UIContextMenuConfiguration? {
+        let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
+            let deleteAction = UIAction(title: "Удалить", image: UIImage(named: "trash"), attributes: .destructive) { _ in
+                DispatchQueue.global(qos: .userInitiated).async {
+                    let todo = self.getCellTodo(at: indexPath.row)
+                    self.interactor.removeTodo(todo)
+                    
+                    DispatchQueue.main.async {
+                        self.view.removeRow(at: indexPath)
+                        self.updateTodosCountLabelText()
+                    }
+                }
+            }
+            
+            let shareAction = UIAction(title: "Поделиться", image: UIImage(named: "share")) { _ in
+                DispatchQueue.global(qos: .userInitiated).async {
+                    let todo = self.getCellTodo(at: indexPath.row)
+                    let shareMessage = String(format:self.SHARE_TODO_TEMPLATE, todo.name, todo.details ?? "")
+                    
+                    let activityVC = UIActivityViewController(activityItems: [shareMessage], applicationActivities: nil)
+                    activityVC.activityItemsConfiguration = [UIActivity.ActivityType.message] as? UIActivityItemsConfigurationReading
+                    activityVC.excludedActivityTypes = [UIActivity.ActivityType.airDrop]
+                    activityVC.popoverPresentationController?.sourceView = self.view as? UIView
+                    
+                    DispatchQueue.main.async {
+                        self.view.showActivity(activityView: activityVC)
+                    }
+                }
+            }
+            
+            let editAction = UIAction(title: "Редактировать", image: UIImage(named: "edit")) { _ in
+                self.didSelectCell(in: tableView, at: indexPath)
+            }
+            
+            let menu = UIMenu(children: [editAction, shareAction, deleteAction])
+            
+            return menu
+        }
+        
+        return configuration
     }
     
     // MARK: - Filter

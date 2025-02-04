@@ -38,6 +38,14 @@ public protocol IContext {
     /// - Returns: Результат выполненного замыкания.
     func perform<T>(schedule: NSManagedObjectContext.ScheduledTaskType, _ block: @escaping () throws -> T) async rethrows -> T
     
+    /// Пометить объект на последующее удаление.
+    ///
+    /// Когда изменения будут зафиксированы, объект будет удален из таблиц уникальности.
+    /// Если объект еще не был сохранен в постоянном хранилище, он просто удаляется из приемника.
+    ///
+    /// - Parameter object: Объект, который необходимо пометить на удаление.
+    func delete(_ object: NSManagedObject)
+    
     /// Сохранить изменения если они есть.
     func saveIfChanged()
 }
