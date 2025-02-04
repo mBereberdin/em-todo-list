@@ -79,8 +79,16 @@ extension TodosView: ITodosView {
         self.navigationController?.pushViewController(view, animated: true)
     }
     
+    public func showActivity(activityView: UIActivityViewController) {
+        self.present(activityView, animated: true, completion: nil)
+    }
+    
     public func addRow(at indexPath: IndexPath) {
         self.todosTable.insertRows(at: [indexPath], with: .top)
+    }
+    
+    public func removeRow(at indexPath: IndexPath) {
+        self.todosTable.deleteRows(at: [indexPath], with: .left)
     }
 }
 
@@ -97,6 +105,12 @@ extension TodosView: UITableViewDelegate, UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.presenter.didSelectCell(in: tableView, at: indexPath)
+    }
+    
+    public func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        let menu = self.presenter.getMenuFor(tableView: tableView, at: indexPath)
+        
+        return menu
     }
 }
 

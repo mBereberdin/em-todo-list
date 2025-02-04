@@ -54,6 +54,15 @@ public protocol ITodosPresenter: AnyObject {
     ///   - indexpath: Путь индекса, идентифицирующий ячейку.
     func didSelectCell(in tableView: UITableView, at indexPath: IndexPath)
     
+    /// Получить меню для ячейки.
+    ///
+    /// - Parameters:
+    ///   - tableView: Таблица задач, запрашивающая меню для ячейки.
+    ///   - indexPath: Путь индекса, идентифицирующий ячейку.
+    ///
+    /// - Returns: Меню для ячейки.
+    func getMenuFor(tableView: UITableView, at indexPath: IndexPath) -> UIContextMenuConfiguration?
+    
     // MARK: - Filter
     
     /// Отфильтровать задачи.

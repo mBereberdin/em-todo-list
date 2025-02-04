@@ -27,4 +27,9 @@ public protocol ITodosRepository {
     ///
     /// - Returns: Созданную задачу.
     func create(id: UUID, name: String, creationDate: Date, isCompleted: Bool, details: String?, needSave: Bool) -> Todo
+    
+    /// Удалить задачу.
+    ///
+    /// - Parameter todo: Задача, которую необходимо удалить.
+    func remove(_ todo: Todo)
 }

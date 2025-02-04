@@ -128,6 +128,20 @@ public final class TodosInteractor: ITodosInteractor {
     public func addTodo(_ todo: Todo) {
         self.todos.append(todo)
     }
+    
+    public func removeTodo(_ todo: Todo) {
+        self._todosRepository.remove(todo)
+        
+        guard let indexOfTodo = self.todos.firstIndex(of: todo) else {
+            return
+        }
+        self.todos.remove(at: indexOfTodo)
+        
+        guard let indexOfTodo = self.filteredTodos.firstIndex(of: todo) else {
+            return
+        }
+        self.filteredTodos.remove(at: indexOfTodo)
+    }
 }
 
 // MARK: - ITodosInteractor defaults extensions

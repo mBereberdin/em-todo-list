@@ -59,4 +59,9 @@ public protocol ITodosInteractor: AnyObject {
     ///
     /// - Parameter todo: Задача, которую необходимо добавить.
     func addTodo(_ todo: Todo)
+    
+    /// Удалить задачу.
+    ///
+    /// - Parameter todo: Задача, которую необходимо удалить.
+    func removeTodo(_ todo: Todo)
 }

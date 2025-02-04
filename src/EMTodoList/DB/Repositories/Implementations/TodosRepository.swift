@@ -33,21 +33,23 @@ public final class TodosRepository: ITodosRepository {
             let asyncFetchRequest = Todo.asyncFetchRequest {(fetchResult) in
                 if let todos = fetchResult.finalResult {
                     continuation.resume(returning: todos)
-                } else {
-                    continuation.resume(throwing: TodosRepositoryErrors.couldNotGetTodos)
+                    
+                    return
                 }
+                
+                continuation.resume(throwing: TodosRepositoryErrors.couldNotGetTodos)
             }
             
             do {
-                _ = try _context.execute(asyncFetchRequest)
-            } catch {
-                continuation.resume(throwing: TodosRepositoryErrors.couldNotGetTodos)
+                _ = try self._context.execute(asyncFetchRequest)
+            } catch let error {
+                continuation.resume(throwing: error)
             }
         }
     }
     
     public func create(id: UUID, name: String, creationDate: Date, isCompleted: Bool, details: String?, needSave: Bool) -> Todo {
-        let todo = Todo(context: _context.managedContext)
+        let todo = Todo(context: self._context.managedContext)
         todo.id = id
         todo.name = name
         todo.creationDate = creationDate
@@ -55,10 +57,15 @@ public final class TodosRepository: ITodosRepository {
         todo.details = details
         
         if needSave {
-            _context.saveIfChanged()
+            self._context.saveIfChanged()
         }
         
         return todo
+    }
+    
+    public func remove(_ todo: Todo) {
+        self._context.delete(todo)
+        self._context.saveIfChanged()
     }
 }
 

@@ -40,6 +40,11 @@ public protocol ITodosView: AnyObject {
     /// - Parameter view: Представление, которое необходимо показать.
     func showView(_ view: UIViewController)
     
+    /// Показать активность.
+    ///
+    /// - Parameter activityView: Представление активности.
+    func showActivity(activityView: UIActivityViewController)
+    
     /// Перезагрузить таблицу задач.
     func reloadTodosTable()
     
@@ -52,4 +57,9 @@ public protocol ITodosView: AnyObject {
     ///
     /// - Parameter indexPath: Путь индекса, по которому необходимо добавить строку.
     func addRow(at indexPath: IndexPath)
+    
+    /// Удалить строку.
+    ///
+    /// - Parameter indexPath: Путь индекса строки, которую необходимо удалить.
+    func removeRow(at indexPath: IndexPath)
 }
