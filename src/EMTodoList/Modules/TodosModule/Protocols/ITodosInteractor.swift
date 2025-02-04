@@ -64,4 +64,9 @@ public protocol ITodosInteractor: AnyObject {
     ///
     /// - Parameter todo: Задача, которую необходимо удалить.
     func removeTodo(_ todo: Todo)
+    
+    /// Переключить флаг завершенности задачи.
+    ///
+    /// - Parameter todo: Задача, для которой необходимо переключить флаг завершенности.
+    func toggleTodosCompletion(_ todo: Todo)
 }
