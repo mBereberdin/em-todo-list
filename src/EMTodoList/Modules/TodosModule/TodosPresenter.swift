@@ -118,7 +118,9 @@ public final class TodosPresenter: ITodosPresenter {
         cell.setCreationDate(self._dateFormatter.string(from: todo.creationDate))
         cell.setIsCompleted(todo.isCompleted)
         cell.onIsCompletedButtonTapped = {
-            todo.isCompleted.toggle()
+            DispatchQueue.global(qos: .userInitiated).async {
+                self.interactor.toggleTodosCompletion(todo)
+            }
         }
         
         return cell

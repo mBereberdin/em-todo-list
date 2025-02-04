@@ -142,6 +142,11 @@ public final class TodosInteractor: ITodosInteractor {
         }
         self.filteredTodos.remove(at: indexOfTodo)
     }
+    
+    public func toggleTodosCompletion(_ todo: Todo) {
+        todo.isCompleted.toggle()
+        self._context.saveIfChanged()
+    }
 }
 
 // MARK: - ITodosInteractor defaults extensions
