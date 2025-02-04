@@ -23,16 +23,33 @@ public protocol ITodosDetailsPresenter: AnyObject {
     /// ``ITodosDetailsInteractor``.
     var interactor: ITodosDetailsInteractor! { get set }
     
-    // MARK: - Methods
+    // MARK: - View
     
     /// Представление было загружено.
     func viewDidLoad()
+    
+    /// Представление было скрыто.
+    func viewDidDisappear()
+    
+    /// Представление было нажато.
+    func viewTapped()
+    
+    // MARK: - Methods
+    
+    /// Получить текущую дату.
+    ///
+    /// - Returns: Текущую дату в формате строки.
+    func getCurrentDate() -> String
+    
+    // MARK: - To interactor
     
     /// Предоставить задачу.
     ///
     /// - Parameter todo: Задачу, которую необходимо предоставить.
     func provideTodo(_ todo: Todo)
     
-    /// Представление было нажато.
-    func viewTapped()
+    /// Установить блок кода, который необходимо выполнить после закрытия представления.
+    ///
+    /// - Parameter completion: Блок кода.
+    func setOnViewDidDisappear(completion: @escaping (Todo?)->())
 }

@@ -124,6 +124,10 @@ public final class TodosInteractor: ITodosInteractor {
     public func setIsFilteringActive(_ isActive: Bool) {
         self.isFilteringActive = isActive
     }
+    
+    public func addTodo(_ todo: Todo) {
+        self.todos.append(todo)
+    }
 }
 
 // MARK: - ITodosInteractor defaults extensions

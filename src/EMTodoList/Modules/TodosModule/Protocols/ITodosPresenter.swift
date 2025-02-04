@@ -26,10 +26,12 @@ public protocol ITodosPresenter: AnyObject {
     /// ``ITodosRouter``.
     var router: ITodosRouter! { get set }
     
-    // MARK: - Methods
+    // MARK: - View
     
     /// Представление было загружено.
     func viewDidLoad()
+    
+    // MARK: - Table
     
     /// Получить количество строк таблицы задач.
     ///
@@ -52,6 +54,8 @@ public protocol ITodosPresenter: AnyObject {
     ///   - indexpath: Путь индекса, идентифицирующий ячейку.
     func didSelectCell(in tableView: UITableView, at indexPath: IndexPath)
     
+    // MARK: - Filter
+    
     /// Отфильтровать задачи.
     ///
     /// - Parameter text: Текст, на основании которого происходит фильтрация.
@@ -61,4 +65,9 @@ public protocol ITodosPresenter: AnyObject {
     ///
     /// - Parameter isActive: Активна ли сейчас фильтрация.
     func updateIsFilteringActive(_ isActive: Bool)
+    
+    // MARK: - Methods
+    
+    /// Создать задачу.
+    func createTodo()
 }

@@ -30,20 +30,9 @@ public final class TodosDetailsPresenter: ITodosDetailsPresenter {
         self._dateFormatter = dateFormatter
     }
     
-    // MARK: - Methods
+    // MARK: - Private
     
-    public func viewDidLoad() {
-        self.view.configureUI()
-        
-        self.view.addViewTapRecognizer()
-        
-        self.setTodosInfo()
-    }
-    
-    public func viewTapped() {
-        self.view.hideKeyboard()
-    }
-    
+    /// Установить информацию о задаче.
     private func setTodosInfo () {
         guard let todo = interactor.todo else {
             return
@@ -55,8 +44,64 @@ public final class TodosDetailsPresenter: ITodosDetailsPresenter {
         self.view.setDetails(todo.details)
     }
     
+    // MARK: - View
+    
+    public func viewDidLoad() {
+        self.view.configureUI()
+        
+        self.view.addViewTapRecognizer()
+        
+        self.setTodosInfo()
+    }
+    
+    public func viewDidDisappear() {
+        let details = self.view.getDetails() ?? ""
+        var name = self.view.getTitle() ?? ""
+        if name.isEmpty {
+            if details.isEmpty {
+                return
+            }
+            
+            name = "Без названия"
+        }
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            if self.interactor.todo == nil {
+                let createdTodo = self.interactor.createTodo(name: name, details: details)
+                self.interactor.onViewDidDisappear?(createdTodo)
+                
+                return
+            }
+            
+            do {
+                try self.interactor.updateTodo(name: name, details: details)
+            } catch let error {
+                self.view.showAlert(description: "Не удалось обновить задачу.\n\(error.localizedDescription)")
+            }
+            
+            self.interactor.onViewDidDisappear?(nil)
+        }
+    }
+    
+    public func viewTapped() {
+        self.view.hideKeyboard()
+    }
+    
+    // MARK: - Methods
+    
+    public func getCurrentDate() -> String {
+        let date = self._dateFormatter.string(from: Date.now)
+        
+        return date
+    }
+    
+    // MARK: - To interactor
+    
     public func provideTodo(_ todo: Todo) {
         self.interactor.setTodo(todo)
     }
+    
+    public func setOnViewDidDisappear(completion: @escaping (Todo?)->()) {
+        self.interactor.setOnViewDidDisappear(completion: completion)
+    }
 }
-

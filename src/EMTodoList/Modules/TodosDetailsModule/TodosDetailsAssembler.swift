@@ -14,7 +14,8 @@ public final class TodosDetailsAssembler: ITodosDetailsAssembler {
     
     public func assemble(with view: ITodosDetailsView) {
         let presenter = TodosDetailsPresenter(view: view, dateFormatter: EMTLTodoDateFormatter())
-        let interactor = TodosDetailsInteractor(presenter: presenter)
+        let interactor = TodosDetailsInteractor(presenter: presenter, context: CoreDataStack.shared.persistentContainer.viewContext,
+                                                todosRepository: TodosRepository())
         
         view.presenter = presenter
         presenter.interactor = interactor

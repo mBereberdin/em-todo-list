@@ -22,5 +22,6 @@ public protocol ITodosRouter: AnyObject {
     /// Показать детальное представление задачи.
     ///
     /// - Parameter todo: Задача, детальное представление которой необходимо показать.
-    func showTodosDetailsView(for todo: Todo)
+    /// - Parameter completion: Блок кода, который необходимо выполнить после закрытия представления.
+    func showTodosDetailsView(for todo: Todo?, completion: ((Todo?)->())?)
 }

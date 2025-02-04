@@ -37,6 +37,13 @@ public final class TodosView: UIViewController {
         
         self.presenter.viewDidLoad()
     }
+    
+    // MARK: - Private
+    
+    /// Кнопка создания задачи была нажата.
+    @objc private func createTodoButtonTapped() {
+        self.presenter.createTodo()
+    }
 }
 
 // MARK: - ITodosView extensions
@@ -70,6 +77,10 @@ extension TodosView: ITodosView {
     
     public func showView(_ view: UIViewController) {
         self.navigationController?.pushViewController(view, animated: true)
+    }
+    
+    public func addRow(at indexPath: IndexPath) {
+        self.todosTable.insertRows(at: [indexPath], with: .top)
     }
 }
 
@@ -124,7 +135,7 @@ extension TodosView {
         
         let createTodoButton = {
             let image = UIImage(systemName: "square.and.pencil")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 22))
-            let barButton = UIBarButtonItem(image: image, style: .plain, target: self, action: nil)
+            let barButton = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(self.createTodoButtonTapped))
             barButton.tintColor = .systemYellow
             
             return barButton

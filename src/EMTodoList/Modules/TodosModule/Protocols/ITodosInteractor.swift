@@ -54,4 +54,9 @@ public protocol ITodosInteractor: AnyObject {
     ///
     /// - Parameter isActive: Активна ли сейчас фильтрация.
     func setIsFilteringActive(_ isActive: Bool)
+    
+    /// Добавить задачу.
+    ///
+    /// - Parameter todo: Задача, которую необходимо добавить.
+    func addTodo(_ todo: Todo)
 }
