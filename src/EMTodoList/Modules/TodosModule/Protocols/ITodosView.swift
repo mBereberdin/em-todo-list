@@ -47,4 +47,9 @@ public protocol ITodosView: AnyObject {
     ///
     /// - Parameter text: Текст, который необходимо задать.
     func setTodosCountLabelText(_ text: String?)
+    
+    /// Добавить строку.
+    ///
+    /// - Parameter indexPath: Путь индекса, по которому необходимо добавить строку.
+    func addRow(at indexPath: IndexPath)
 }

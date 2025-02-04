@@ -60,6 +60,15 @@ public final class TodosDetailsView: UIViewController {
         self.presenter.viewDidLoad()
     }
     
+    /// Представление было скрыто.
+    ///
+    /// - Parameter animated: Было ли скрыто с анимацией.
+    public override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        self.presenter.viewDidDisappear()
+    }
+    
     // MARK: - Private
     
     /// Представление было нажато.
@@ -70,6 +79,8 @@ public final class TodosDetailsView: UIViewController {
 
 // MARK: - ITodosDetailsView extensions
 extension TodosDetailsView: ITodosDetailsView {
+    
+    // MARK: - Methods
     
     public func hideKeyboard() {
         self.view.endEditing(true)
@@ -82,6 +93,7 @@ extension TodosDetailsView: ITodosDetailsView {
     
     public func configureUI() {
         self.configureView()
+        self.configureNavigationItem()
         
         self.configureTitleTextField()
         self.configureDateLabel()
@@ -96,6 +108,8 @@ extension TodosDetailsView: ITodosDetailsView {
         self.present(alert, animated: true)
     }
     
+    // MARK: - Get from \ Set to ui elements
+    
     public func setTitle(_ text: String?) {
         self.titleTextField.text = text
     }
@@ -108,8 +122,26 @@ extension TodosDetailsView: ITodosDetailsView {
         self.detailsTextView.text = details
     }
     
+    public func getTitle() -> String? {
+        let title = self.titleTextField.text
+        
+        return title
+    }
+    
+    public func getDetails() -> String? {
+        let details = self.detailsTextView.text
+        
+        return details
+    }
+    
+    // MARK: - To presenter
+    
     public func provideTodo(_ todo: Todo) {
         self.presenter.provideTodo(todo)
+    }
+    
+    public func setOnViewDidDisappear(completion: @escaping (Todo?)->()) {
+        self.presenter.setOnViewDidDisappear(completion: completion)
     }
 }
 
@@ -123,6 +155,18 @@ extension ITodosDetailsView {
 
 // MARK: - Configure UI extensions
 extension TodosDetailsView {
+    
+    private func configureNavigationItem() {
+        self.navigationItem.largeTitleDisplayMode = .never
+        
+        self.navigationItem.scrollEdgeAppearance = {
+            let scrollEdgeAppearance = UINavigationBarAppearance()
+            scrollEdgeAppearance.configureWithOpaqueBackground()
+            scrollEdgeAppearance.backgroundColor = .black
+            
+            return scrollEdgeAppearance
+        }()
+    }
     
     /// Настроить представление.
     private func configureView() {
@@ -161,6 +205,7 @@ extension TodosDetailsView {
         
         self.dateLabel.textColor = .white.withAlphaComponent(0.5)
         self.dateLabel.font = .systemFont(ofSize: 12)
+        self.dateLabel.text = self.presenter.getCurrentDate()
     }
     
     /// Настроить представление текста деталей задачи.

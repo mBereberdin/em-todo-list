@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         
         let rootNC = UINavigationController(rootViewController: TodosView())
-        rootNC.navigationBar.backgroundColor = .black
+        rootNC.navigationBar.backgroundColor = .clear
         rootNC.navigationBar.prefersLargeTitles = true
         rootNC.navigationBar.isTranslucent = false
         

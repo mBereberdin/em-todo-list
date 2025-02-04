@@ -33,7 +33,28 @@ public final class TodosPresenter: ITodosPresenter {
         self._dateFormatter = dateFormatter
     }
     
-    // MARK: - Methods
+    // MARK: - Private
+    
+    /// Обновить текст надписи количества задач.
+    private func updateTodosCountLabelText() {
+        let text = String(format: "%d Задач", self.getNumberOfRows())
+        self.view.setTodosCountLabelText(text)
+    }
+    
+    /// Добавить последнюю строку.
+    private func addLastRow() {
+        if self.interactor.isFilteringActive {
+            return
+        }
+        
+        DispatchQueue.main.async {
+            let indexPath = IndexPath(row: self.getNumberOfRows() - 1, section: 0)
+            self.view.addRow(at: indexPath)
+            self.updateTodosCountLabelText()
+        }
+    }
+    
+    // MARK: - View
     
     public func viewDidLoad() {
         self.view.configureUI()
@@ -62,6 +83,8 @@ public final class TodosPresenter: ITodosPresenter {
         }
     }
     
+    // MARK: - Table
+    
     public func getNumberOfRows() -> Int {
         let numberOfRows = self.interactor.isFilteringActive ? self.interactor.filteredTodos.count : self.interactor.todos.count
         
@@ -89,8 +112,14 @@ public final class TodosPresenter: ITodosPresenter {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let todo = self.interactor.isFilteringActive ? self.interactor.filteredTodos[indexPath.row] : self.interactor.todos[indexPath.row]
-        self.router.showTodosDetailsView(for: todo)
+        self.router.showTodosDetailsView(for: todo) { _ in
+            DispatchQueue.main.async {
+                tableView.reloadRows(at: [indexPath], with: .fade)
+            }
+        }
     }
+    
+    // MARK: - Filter
     
     public func filterTodos(by text: String?) {
         DispatchQueue.global(qos: .userInitiated).async {
@@ -107,9 +136,18 @@ public final class TodosPresenter: ITodosPresenter {
         self.interactor.setIsFilteringActive(isActive)
     }
     
-    /// Обновить текст надписи количества задач.
-    private func updateTodosCountLabelText() {
-        let text = String(format: "%d Задач", self.getNumberOfRows())
-        self.view.setTodosCountLabelText(text)
+    // MARK: - Methods
+    
+    public func createTodo() {
+        self.router.showTodosDetailsView(for: nil) { createdTodo in
+            guard let createdTodo = createdTodo else {
+                return
+            }
+            
+            DispatchQueue.global(qos: .userInitiated).async {
+                self.interactor.addTodo(createdTodo)
+                self.addLastRow()
+            }
+        }
     }
 }

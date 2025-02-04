@@ -39,6 +39,8 @@ public protocol ITodosDetailsView: AnyObject {
     ///   - description: Описание.
     func showAlert(title: String, description: String)
     
+    // MARK: - Get from \ Set to ui elements
+    
     /// Установить заголовок.
     ///
     /// - Parameter text: Текст, который необходимо установить в качестве заголовка.
@@ -54,8 +56,25 @@ public protocol ITodosDetailsView: AnyObject {
     /// - Parameter details: Описание задачи, которое необходимо установить.
     func setDetails(_ details: String?)
     
+    /// Получить заголовок.
+    ///
+    /// - Returns: Текст заголовка.
+    func getTitle() -> String?
+    
+    /// Получить описание.
+    ///
+    /// - Returns: Текст описания.
+    func getDetails() -> String?
+    
+    // MARK: - To presenter
+    
     /// Предоставить задачу.
     ///
     /// - Parameter todo: Задачу, которую необходимо предоставить.
     func provideTodo(_ todo: Todo)
+    
+    /// Установить блок кода, который необходимо выполнить после закрытия представления.
+    ///
+    /// - Parameter completion: Блок кода.
+    func setOnViewDidDisappear(completion: @escaping (Todo?)->())
 }
