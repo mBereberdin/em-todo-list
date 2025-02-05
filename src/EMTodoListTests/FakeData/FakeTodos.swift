@@ -75,9 +75,9 @@ public final class FakeTodos {
         self._context.saveIfChanged()
     }
     
-    /// Получить колличество существующих фиктивных задачи.
+    /// Получить количество существующих фиктивных задачи.
     ///
-    /// - Returns: Колличество существующих фиктивных задачи.
+    /// - Returns: Количество существующих фиктивных задачи.
     public func count() -> Int {
         return try! self._context.count(for: Todo.fetchRequest())
     }

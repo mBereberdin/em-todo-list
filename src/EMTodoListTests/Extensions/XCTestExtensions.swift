@@ -28,4 +28,17 @@ extension XCTest {
             errorHandler(error)
         }
     }
+    
+    public func XCTAssertNoThrowAsync<T>(_ expression: @autoclosure () async throws -> T, _ message: @autoclosure () -> String = "", file: StaticString = #filePath, line: UInt = #line) async {
+        do {
+            _ = try await expression()
+        } catch {
+            var customMessage = message()
+            if customMessage.isEmpty {
+                customMessage = "Asynchronous call threw an error."
+            }
+            
+            XCTFail(customMessage, file: file, line: line)
+        }
+    }
 }
