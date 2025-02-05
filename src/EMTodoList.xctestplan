@@ -1,0 +1,29 @@
+{
+  "configurations" : [
+    {
+      "id" : "D6D4F9B0-964B-475A-B23E-2A27CE598DC3",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:EMTodoList.xcodeproj",
+      "identifier" : "257BCF092D4A34C100642BFB",
+      "name" : "EMTodoList"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : false,
+      "target" : {
+        "containerPath" : "container:EMTodoList.xcodeproj",
+        "identifier" : "257BD0BC2D52F6AE00642BFB",
+        "name" : "EMTodoListTests"
+      }
+    }
+  ],
+  "version" : 1
+}

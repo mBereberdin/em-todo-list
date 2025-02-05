@@ -24,6 +24,7 @@
 /* Begin PBXFileReference section */
 		257BCF0A2D4A34C100642BFB /* EMTodoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EMTodoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		257BD0BD2D52F6AE00642BFB /* EMTodoListTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EMTodoListTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		257BD0D92D534A7500642BFB /* EMTodoList.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = EMTodoList.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -75,6 +76,7 @@
 		257BCF012D4A34C100642BFB = {
 			isa = PBXGroup;
 			children = (
+				257BD0D92D534A7500642BFB /* EMTodoList.xctestplan */,
 				257BCF0C2D4A34C100642BFB /* EMTodoList */,
 				257BD0BE2D52F6AE00642BFB /* EMTodoListTests */,
 				257BCF0B2D4A34C100642BFB /* Products */,
