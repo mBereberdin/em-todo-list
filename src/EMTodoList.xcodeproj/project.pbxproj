@@ -11,8 +11,19 @@
 		257BD08D2D4B7D0100642BFB /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 257BD08C2D4B7D0100642BFB /* SnapKit */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		257BD0C12D52F6AE00642BFB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 257BCF022D4A34C100642BFB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 257BCF092D4A34C100642BFB;
+			remoteInfo = EMTodoList;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		257BCF0A2D4A34C100642BFB /* EMTodoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EMTodoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		257BD0BD2D52F6AE00642BFB /* EMTodoListTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EMTodoListTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -34,6 +45,11 @@
 			path = EMTodoList;
 			sourceTree = "<group>";
 		};
+		257BD0BE2D52F6AE00642BFB /* EMTodoListTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = EMTodoListTests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,6 +62,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		257BD0BA2D52F6AE00642BFB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -53,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				257BCF0C2D4A34C100642BFB /* EMTodoList */,
+				257BD0BE2D52F6AE00642BFB /* EMTodoListTests */,
 				257BCF0B2D4A34C100642BFB /* Products */,
 			);
 			sourceTree = "<group>";
@@ -61,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				257BCF0A2D4A34C100642BFB /* EMTodoList.app */,
+				257BD0BD2D52F6AE00642BFB /* EMTodoListTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -92,6 +117,29 @@
 			productReference = 257BCF0A2D4A34C100642BFB /* EMTodoList.app */;
 			productType = "com.apple.product-type.application";
 		};
+		257BD0BC2D52F6AE00642BFB /* EMTodoListTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 257BD0C32D52F6AE00642BFB /* Build configuration list for PBXNativeTarget "EMTodoListTests" */;
+			buildPhases = (
+				257BD0B92D52F6AE00642BFB /* Sources */,
+				257BD0BA2D52F6AE00642BFB /* Frameworks */,
+				257BD0BB2D52F6AE00642BFB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				257BD0C22D52F6AE00642BFB /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				257BD0BE2D52F6AE00642BFB /* EMTodoListTests */,
+			);
+			name = EMTodoListTests;
+			packageProductDependencies = (
+			);
+			productName = EMTodoListTests;
+			productReference = 257BD0BD2D52F6AE00642BFB /* EMTodoListTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -104,6 +152,10 @@
 				TargetAttributes = {
 					257BCF092D4A34C100642BFB = {
 						CreatedOnToolsVersion = 16.2;
+					};
+					257BD0BC2D52F6AE00642BFB = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 257BCF092D4A34C100642BFB;
 					};
 				};
 			};
@@ -126,12 +178,20 @@
 			projectRoot = "";
 			targets = (
 				257BCF092D4A34C100642BFB /* EMTodoList */,
+				257BD0BC2D52F6AE00642BFB /* EMTodoListTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		257BCF082D4A34C100642BFB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		257BD0BB2D52F6AE00642BFB /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -148,7 +208,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		257BD0B92D52F6AE00642BFB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		257BD0C22D52F6AE00642BFB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 257BCF092D4A34C100642BFB /* EMTodoList */;
+			targetProxy = 257BD0C12D52F6AE00642BFB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		257BCF1E2D4A34C300642BFB /* Debug */ = {
@@ -322,6 +397,50 @@
 			};
 			name = Release;
 		};
+		257BD0C42D52F6AE00642BFB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MACOSX_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = mikhailbereberdin.EMTodoListTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EMTodoList.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/EMTodoList";
+				XROS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Debug;
+		};
+		257BD0C52D52F6AE00642BFB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MACOSX_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = mikhailbereberdin.EMTodoListTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EMTodoList.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/EMTodoList";
+				XROS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -339,6 +458,15 @@
 			buildConfigurations = (
 				257BCF1E2D4A34C300642BFB /* Debug */,
 				257BCF1F2D4A34C300642BFB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		257BD0C32D52F6AE00642BFB /* Build configuration list for PBXNativeTarget "EMTodoListTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				257BD0C42D52F6AE00642BFB /* Debug */,
+				257BD0C52D52F6AE00642BFB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
