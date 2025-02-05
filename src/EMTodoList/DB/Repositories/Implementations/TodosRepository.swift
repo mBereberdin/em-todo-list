@@ -42,8 +42,8 @@ public final class TodosRepository: ITodosRepository {
             
             do {
                 _ = try self._context.execute(asyncFetchRequest)
-            } catch let error {
-                continuation.resume(throwing: error)
+            } catch {
+                continuation.resume(throwing: TodosRepositoryErrors.couldNotGetTodos)
             }
         }
     }
